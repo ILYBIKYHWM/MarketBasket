@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\MasterDataBarangController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,3 +17,6 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('dashboard');
 });
+
+Route::resource('/masterdatabarang', MasterDataBarangController::class);
+Route::get('/masterdatabarang', [MasterDataBarangController::class, 'index'])->name('masterdatabarang.index');
