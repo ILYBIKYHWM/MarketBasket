@@ -3,16 +3,17 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\DataTransaksi;
 
-class MasterDataBarangController extends Controller
+class DataTransaksiController extends Controller
 {
-
     public function __construct()
     {
         $this->middleware('auth');
     }
 
     public function index(){
-        return view('masterdatabarang.index');
+        $transaksi = DataTransaksi::all();
+        return view('datatransaksi.index', compact('transaksi'));
     }
 }

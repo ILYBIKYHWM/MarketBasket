@@ -1,52 +1,76 @@
-
-<button data-drawer-target="logo-sidebar" data-drawer-toggle="logo-sidebar" aria-controls="logo-sidebar" type="button" class="inline-flex items-center p-2 mt-2 ml-3 text-sm text-gray-500 rounded-lg sm:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600">
-    <span class="sr-only">Open sidebar</span>
-    <svg class="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-       <path clip-rule="evenodd" fill-rule="evenodd" d="M2 4.75A.75.75 0 012.75 4h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 4.75zm0 10.5a.75.75 0 01.75-.75h7.5a.75.75 0 010 1.5h-7.5a.75.75 0 01-.75-.75zM2 10a.75.75 0 01.75-.75h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 10z"></path>
-    </svg>
- </button>
+<nav class="flex justify-end items-center w-full bg-white shadow-xl">   
+   <div class="flex items-center px-12 py-3">
+      <div class="flex items-center ml-3">
+         <div>
+            <button type="button" class="flex items-center font-medium space-x-4 dark:focus:ring-gray-600" aria-expanded="false" data-dropdown-toggle="dropdown-user">               
+               <img class="w-10 h-10 rounded-full object-contain" src="{{ asset('user.png') }}" alt="user photo">
+               <p>Admin</p>
+            </button>
+         </div>
+         <div class="z-50 hidden my-4 text-base list-none bg-white divide-y divide-gray-100 rounded shadow dark:bg-gray-700 dark:divide-gray-600" id="dropdown-user">            
+            <ul class="p-2" role="none">
+               {{-- <li>
+                  <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white" role="menuitem">Dashboard</a>
+               </li>
+               <li>
+                  <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white" role="menuitem">Settings</a>
+               </li>
+               <li>
+                  <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white" role="menuitem">Earnings</a>
+               </li> --}}
+               <li>
+                  <form action="{{ route('logout') }}" method="POST" class="block px-12 py-2 text-sm font-medium text-gray-700 rounded-md hover:bg-red-500 hover:text-white group">
+                     @csrf                     
+                        <button type="submit">Sign Out</button>
+                  </form>
+               </li>
+            </ul>
+         </div>
+      </div>
+      </div>
+   {{-- <div class="flex space-x-2 items-center px-8 py-2">
+      <p class="font-medium text-sm">Admin</p>
+      <img src="" alt="" class="rounded-full h-10 w-10 border">
+   </div> --}}
+</nav>
 
  <aside id="logo-sidebar" class="fixed top-0 left-0 z-40 w-64 h-screen transition-transform -translate-x-full sm:translate-x-0" aria-label="Sidebar">
-    <div class="h-full px-3 py-4 overflow-y-auto bg-gray-800">
+    <div class="h-full px-3 py-4 overflow-y-auto bg-putty-300">
        <a href="#" class="flex items-center pl-2.5 mb-5">
           {{-- <img src="https://flowbite.com/docs/images/logo.svg" class="h-6 mr-3 sm:h-7" alt="Flowbite Logo" /> --}}
           <span class="self-center text-xl font-semibold whitespace-nowrap text-white">Market Analyst</span>
        </a>
-       <ul class="space-y-2 font-medium">
-          <li>
-             <a href="/" class="flex items-center p-2 rounded-lg text-white hover:bg-gray-700">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
+       <ul class="space-y-2 font-medium text-sm border-b pb-3">
+          <li class="border-y py-3">
+             <a href="/" class="flex items-center p-2 rounded-lg text-white hover:bg-putty-500">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5">
                     <path d="M11.47 3.84a.75.75 0 011.06 0l8.69 8.69a.75.75 0 101.06-1.06l-8.689-8.69a2.25 2.25 0 00-3.182 0l-8.69 8.69a.75.75 0 001.061 1.06l8.69-8.69z" />
                     <path d="M12 5.432l8.159 8.159c.03.03.06.058.091.086v6.198c0 1.035-.84 1.875-1.875 1.875H15a.75.75 0 01-.75-.75v-4.5a.75.75 0 00-.75-.75h-3a.75.75 0 00-.75.75V21a.75.75 0 01-.75.75H5.625a1.875 1.875 0 01-1.875-1.875v-6.198a2.29 2.29 0 00.091-.086L12 5.43z" />
                 </svg>
-                <span class="ml-3">Beranda</span>
+                <span class="ml-3">Dashboard</span>
              </a>
           </li>
           <li>
-             <a href="{{ route('detaildatatransaksi.index') }}" class="flex items-center p-2 rounded-lg text-white hover:bg-gray-700">
-               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
-                  <path d="M11.625 16.5a1.875 1.875 0 100-3.75 1.875 1.875 0 000 3.75z" />
-                  <path fill-rule="evenodd" d="M5.625 1.5H9a3.75 3.75 0 013.75 3.75v1.875c0 1.036.84 1.875 1.875 1.875H16.5a3.75 3.75 0 013.75 3.75v7.875c0 1.035-.84 1.875-1.875 1.875H5.625a1.875 1.875 0 01-1.875-1.875V3.375c0-1.036.84-1.875 1.875-1.875zm6 16.5c.66 0 1.277-.19 1.797-.518l1.048 1.048a.75.75 0 001.06-1.06l-1.047-1.048A3.375 3.375 0 1011.625 18z" clip-rule="evenodd" />
-                  <path d="M14.25 5.25a5.23 5.23 0 00-1.279-3.434 9.768 9.768 0 016.963 6.963A5.23 5.23 0 0016.5 7.5h-1.875a.375.375 0 01-.375-.375V5.25z" />
-                </svg>                
-                <span class="flex-1 ml-3 whitespace-nowrap">Detail Data Transaksi</span>
+             <span class="text-2xs text-white ml-3 uppercase">Master Data</span>
+          </li>
+          <li>
+             <a href="{{ route('datatransaksi.index') }}" class="flex items-center p-2 rounded-lg text-white hover:bg-putty-500">
+               <i class="fa-solid fa-money-bill-wave"></i> 
+               <span class="flex-1 ml-3 whitespace-nowrap">Data Transaksi</span>
              </a>
           </li>
           <li>
-             <a href="{{ route('inputtransaksi.index') }}" class="flex items-center p-2 rounded-lg text-white hover:bg-gray-700">
-               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
-                  <path fill-rule="evenodd" d="M5.478 5.559A1.5 1.5 0 016.912 4.5H9A.75.75 0 009 3H6.912a3 3 0 00-2.868 2.118l-2.411 7.838a3 3 0 00-.133.882V18a3 3 0 003 3h15a3 3 0 003-3v-4.162c0-.299-.045-.596-.133-.882l-2.412-7.838A3 3 0 0017.088 3H15a.75.75 0 000 1.5h2.088a1.5 1.5 0 011.434 1.059l2.213 7.191H17.89a3 3 0 00-2.684 1.658l-.256.513a1.5 1.5 0 01-1.342.829h-3.218a1.5 1.5 0 01-1.342-.83l-.256-.512a3 3 0 00-2.684-1.658H3.265l2.213-7.191z" clip-rule="evenodd" />
-                  <path fill-rule="evenodd" d="M12 2.25a.75.75 0 01.75.75v6.44l1.72-1.72a.75.75 0 111.06 1.06l-3 3a.75.75 0 01-1.06 0l-3-3a.75.75 0 011.06-1.06l1.72 1.72V3a.75.75 0 01.75-.75z" clip-rule="evenodd" />
-                </svg>                
-                <span class="flex-1 ml-3 whitespace-nowrap">Input Transaksi</span>
-             </a>
-          </li>
-          <li>
-             <a href="{{ route('riwayattransaksi.index') }}" class="flex items-center p-2 rounded-lg text-white hover:bg-gray-700">
-               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+             <a href="{{ route('dataproses.index') }}" class="flex items-center p-2 rounded-lg text-white hover:bg-putty-500">
+               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-4 h-5">
                   <path stroke-linecap="round" stroke-linejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99" />
                </svg>
-                <span class="flex-1 ml-3 whitespace-nowrap">Riwayat Transaksi</span>
+               <span class="flex-1 ml-3 whitespace-nowrap">Data Proses</span>
+             </a>
+          </li>
+          <li>
+             <a href="{{ route('datahasil.index') }}" class="flex items-center p-2 rounded-lg text-white hover:bg-putty-500">
+               <i class="fa-solid fa-coins"></i>
+               <span class="flex-1 ml-3.5 whitespace-nowrap">Data Hasil</span>
              </a>
           </li>
           {{-- <li>
