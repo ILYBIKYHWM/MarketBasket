@@ -54,6 +54,12 @@
              <span class="text-2xs text-white ml-3 uppercase">Master Data</span>
           </li>
           <li>
+             <a href="{{ route('databarang.index') }}" class="flex items-center p-2 rounded-lg text-white hover:bg-putty-500">
+               <i class="fa-solid fa-box"></i>
+               <span class="flex-1 ml-4 whitespace-nowrap">Data Barang</span>
+             </a>
+          </li>
+          <li>
              <a href="{{ route('datatransaksi.index') }}" class="flex items-center p-2 rounded-lg text-white hover:bg-putty-500">
                <i class="fa-solid fa-money-bill-wave"></i> 
                <span class="flex-1 ml-3 whitespace-nowrap">Data Transaksi</span>

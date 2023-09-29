@@ -15,4 +15,9 @@ class DataHasilController extends Controller
     {
         return view('datahasil.index');
     }
+
+    public function show()
+    {
+        return view('datahasil.show');
+    }
 }

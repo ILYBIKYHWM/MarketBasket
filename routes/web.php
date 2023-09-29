@@ -5,6 +5,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\DataTransaksiController;
 use App\Http\Controllers\DataProsesController;
 use App\Http\Controllers\DataHasilController;
+use App\Http\Controllers\DataBarangController;
 
 /*
 |--------------------------------------------------------------------------
@@ -41,3 +42,6 @@ Route::get('/dataproses', [DataProsesController::class, 'index'])->name('datapro
 
 Route::resource('/datahasil', DataHasilController::class);
 Route::get('/datahasil', [DataHasilController::class, 'index'])->name('datahasil.index');
+
+Route::resource('/databarang', DataBarangController::class);
+Route::get('/databarang', [DataBarangController::class, 'index'])->name('databarang.index');
