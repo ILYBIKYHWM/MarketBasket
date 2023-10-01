@@ -19,22 +19,55 @@
                 <i class="fa-solid fa-table" style="color: #7eaa92;"></i>
                 <p class="text-sm font-medium text-putty-300">Langkah 1: Cari Data Transaksi</p>
             </div>
-            <div class="col-span-12 grid grid-cols-12 gap-4 p-4">
+            <form action="{{ route('search.data') }}" method="POST" class="col-span-12 grid grid-cols-12 gap-4 p-4">
+            @csrf            
                 <div class="col-span-10 flex items-center">
                     <div class="border-l border-y bg-gray-100 border-gray-400 rounded-l-md" style="padding:7px 13px">
                         <i class="fa-solid fa-calendar" style="color: #7eaa92;"></i>
                     </div>
-                    <input type="text" name="daterange" value="01/01/2018 - 01/15/2018" class="border-gray-400 w-full h-10 rounded-r-md focus:ring-0 focus:border-putty-300 focus:ring-putty-300"/>
+                    <input type="text" name="daterange" value="07/17/2023 - 07/18/2023" class="border-gray-400 w-full h-10 rounded-r-md focus:ring-0 focus:border-putty-300 focus:ring-putty-300"/>
                 </div>
                 <div class="col-span-2">
-                    <button class="flex items-center justify-center space-x-1 w-full h-full bg-green-400 text-white rounded-md">
+                    <button type="submit" class="flex items-center justify-center space-x-1 w-full h-full bg-green-400 text-white rounded-md">
                         <i class="fa-solid fa-magnifying-glass fa-sm"></i>
                         <span class="font-medium">Cari Data</span>
                     </button>
                 </div>
-            </div>
+            </form>
         </div>
     </div>
+    @if (isset($dataSort) && $dataSort->isEmpty())
+    
+    @elseif (isset($dataSort))
+    <div class="col-span-12 bg-white rounded-md shadow-xl">
+      <div class="p-4 flex items-center space-x-2 bg-gray-100 rounded-t-md">
+          <i class="fa-solid fa-table" style="color: #7eaa92;"></i>
+          <p class="text-sm font-medium text-putty-300">Daftar Data Barang</p>
+      </div>
+      <div class="p-4">
+          <table class="min-w-full border border-gray-300">
+              <thead class="bg-putty-300 text-white">
+                <tr>
+                  <th class="py-2 w-12 border">No</th>
+                  <th class="py-2 px-4 border">Tanggal</th>
+                  <th class="py-2 px-4 border">Produk</th>
+                </tr>
+              </thead>
+              <tbody class="text-gray-800">
+              @php $no = 1 @endphp
+                    @foreach ($dataSort as $dt)
+                        <tr>
+                            <td class="py-2 px-4 border text-center">{{ $no++ }}</td>
+                            <td class="py-2 px-4 border text-center">{{ $dt->tanggal }}</td>
+                            <td class="py-2 px-4 border text-center">{{ $dt->products }}</td>
+                        </tr>
+                    @endforeach
+                    <!-- More data rows... -->
+              </tbody>
+            </table>
+          </div>
+    </div>
+    @endif
     <div class="col-span-12">
         <div class="grid grid-cols-12 gap-2 bg-white rounded-md">
             <div class="col-span-12 flex items-center p-4 space-x-2 bg-gray-100 rounded-t-md">

@@ -40,6 +40,7 @@ Route::post('/datatransaksi/manualInput', [DataTransaksiController::class, 'manu
 
 Route::resource('/dataproses', DataProsesController::class);
 Route::get('/dataproses', [DataProsesController::class, 'index'])->name('dataproses.index');
+Route::post('/dataproses/searchData', [DataProsesController::class, 'searchData'])->name('search.data');
 
 Route::resource('/datahasil', DataHasilController::class);
 Route::get('/datahasil', [DataHasilController::class, 'index'])->name('datahasil.index');
