@@ -36,6 +36,7 @@ Route::get('/', [HomeController::class, 'index'])->name('dashboard');
 
 Route::resource('/datatransaksi', DataTransaksiController::class);
 Route::get('/datatransaksi', [DataTransaksiController::class, 'index'])->name('datatransaksi.index');
+Route::post('/datatransaksi/manualInput', [DataTransaksiController::class, 'manualInput'])->name('manual.input');
 
 Route::resource('/dataproses', DataProsesController::class);
 Route::get('/dataproses', [DataProsesController::class, 'index'])->name('dataproses.index');

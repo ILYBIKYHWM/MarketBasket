@@ -12,6 +12,7 @@ class DataTransaksi extends Model
     protected $table = 'datatransaksi';
 
     protected $fillable = [
+        'id_transaksi',
         'tanggal',
         'products'
     ];
