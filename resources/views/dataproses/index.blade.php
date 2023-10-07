@@ -19,7 +19,7 @@
                 <i class="fa-solid fa-table" style="color: #7eaa92;"></i>
                 <p class="text-sm font-medium text-putty-300">Langkah 1: Cari Data Transaksi</p>
             </div>
-            <form action="{{ route('search.data') }}" method="POST" class="col-span-12 grid grid-cols-12 gap-4 p-4">
+            <form id="form-cari-data" action="{{ route('search.data') }}" method="POST" class="col-span-12 grid grid-cols-12 gap-4 p-4">
             @csrf            
                 <div class="col-span-10 flex items-center">
                     <div class="border-l border-y bg-gray-100 border-gray-400 rounded-l-md" style="padding:7px 13px">
@@ -37,7 +37,7 @@
         </div>
     </div>
     @if (isset($dataSort) && $dataSort->isEmpty())
-    
+
     @elseif (isset($dataSort))
     <div class="col-span-12 bg-white rounded-md shadow-xl">
       <div class="p-4 flex items-center space-x-2 bg-gray-100 rounded-t-md">
@@ -74,7 +74,8 @@
                 <i class="fa-solid fa-table" style="color: #7eaa92;"></i>
                 <p class="text-sm font-medium text-putty-300">Langkah 1: Cari Data Transaksi</p>
             </div>
-            <div class="col-span-12 grid grid-cols-12 gap-4 p-4">
+            <form action="{{ route('proses.data') }}" method="POST" class="col-span-12 grid grid-cols-12 gap-4 p-4">
+              @csrf
                 <div class="col-span-10 grid grid-cols-2 gap-4">
                     <div class="flex items-center">
                         <div class="border-l border-y w-36 bg-gray-100 border-gray-400 rounded-l-md text-center text-sm font-medium text-gray-600" style="padding: 9px 10px">
@@ -90,16 +91,19 @@
                     </div>
                 </div>
                 <div class="col-span-2">
-                    <button class="flex items-center justify-center space-x-1 w-full h-full bg-green-400 text-white rounded-md">
+                    <button type="submit" class="flex items-center justify-center space-x-1 w-full h-full bg-green-400 text-white rounded-md">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99" />
                         </svg>
                         <span class="font-medium">Proses Data</span>
                     </button>
                 </div>
-            </div>
+            </form>
         </div>
     </div>
+    @if (empty($support) && empty($confidence) && empty($startDate) && empty($endDate))
+
+    @else
     <div class="col-span-12">
         <div class="grid grid-cols-12 gap-2 bg-white rounded-md">
             <div class="col-span-12 flex items-center p-4 space-x-2 bg-gray-100 rounded-t-md">
@@ -112,25 +116,26 @@
               <tbody>
                 <tr>
                   <td class="py-2 px-4 border w-64 bg-putty-300 text-white">Minimal Support</td>
-                  <td class="py-2 px-4 border text-gray-800">75%</td>
+                  <td class="py-2 px-4 border text-gray-800">{{ $support }}</td>
                 </tr>
                 <tr>
                   <td class="py-2 px-4 border w-64 bg-putty-300 text-white">Minimal Confidence</td>
-                  <td class="py-2 px-4 border text-gray-800">80</td>
+                  <td class="py-2 px-4 border text-gray-800">{{ $confidence }}</td>
                 </tr>
                 <tr>
                   <td class="py-2 px-4 border w-64 bg-putty-300 text-white">Start Date</td>
-                  <td class="py-2 px-4 border text-gray-800">01/02/2023</td>
+                  <td class="py-2 px-4 border text-gray-800">{{ $startDate }}</td>
                 </tr>
                 <tr>
                   <td class="py-2 px-4 border w-64 bg-putty-300 text-white">End Date</td>
-                  <td class="py-2 px-4 border text-gray-800">19/02/2023</td>
+                  <td class="py-2 px-4 border text-gray-800">{{ $endDate }}</td>
                 </tr>
                 <!-- More data rows... -->
               </tbody>
             </table>
         </div>
     </div>
+    @endif
     <div class="col-span-12">
         <div class="grid grid-cols-12 gap-2 bg-white rounded-md">
             <div class="col-span-12 flex items-center p-4 space-x-2 bg-gray-100 rounded-t-md">
@@ -475,6 +480,25 @@
         console.log("A new date selection was made: " + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD'));
       });
     });
+</script>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+      const formElements = document.querySelectorAll("input, select, textarea");
+
+      formElements.forEach(function (element) {
+          element.addEventListener("input", function () {
+              sessionStorage.setItem(element.id, element.value);
+          });
+      });
+
+      formElements.forEach(function (element) {
+          const storedValue = sessionStorage.getItem(element.id);
+          if (storedValue !== null) {
+              element.value = storedValue;
+          }
+      });
+  });
 </script>
 
 @endsection

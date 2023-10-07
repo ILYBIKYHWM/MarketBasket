@@ -26,6 +26,29 @@ class DataProsesController extends Controller
 
         $dataSort = DataTransaksi::whereBetween('tanggal', [$startDate, $endDate])->get();
         
+        $request->session()->put('dataSort', $dataSort);
+        $request->session()->put('startDate', $startDate);
+        $request->session()->put('endDate', $endDate);
+
+        
         return view('dataproses.index', ['dataSort' => $dataSort]);
+    }
+
+    public function prosesData(Request $request)
+    {
+        $support = $request->input('support');
+        $confidence = $request->input('confidence');
+
+        $dataSort = $request->session()->get('dataSort');
+        $startDate = $request->session()->get('startDate');
+        $endDate = $request->session()->get('endDate');
+
+        return view('dataproses.index', [
+            'startDate' => $startDate,
+            'endDate' => $endDate,
+            'dataSort' => $dataSort,
+            'support' => $support,
+            'confidence' => $confidence,
+        ]);
     }
 }
