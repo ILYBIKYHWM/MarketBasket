@@ -155,13 +155,25 @@
                 </tr>
               </thead>
               <tbody class="text-gray-800">
-                <tr>
-                  <td class="py-2 px-4 border text-center">1</td>
-                  <td class="py-2 px-4 border text-center">Mentega</td>
-                  <td class="py-2 px-4 border text-center">3/3</td>
-                  <td class="py-2 px-4 border text-center">100%</td>
-                  <td class="py-2 px-4 border text-center">Lolos</td>
-                </tr>
+                
+                  @if (empty($itemSupport))
+
+                  @else
+                  @php
+                    $no = 1;
+                  @endphp
+                  @foreach ($itemSupport as $item)
+                    <tr>
+                      <td class="py-2 px-4 border text-center">{{ $no++ }}</td>
+                      <td class="py-2 px-4 border text-center">{{ $item['item'] }}</td>
+                      <td class="py-2 px-4 border text-center">{{ $item['support'] }}</td>
+                      <td class="py-2 px-4 border text-center">{{ $item['percentage'] }} %</td>
+                      <td class="py-2 px-4 border text-center">{{ $item['information'] }}</td>
+                    </tr>
+                  @endforeach
+
+                  @endif
+            
                 <!-- More data rows... -->
               </tbody>
             </table>
@@ -186,13 +198,25 @@
                 </tr>
               </thead>
               <tbody class="text-gray-800">
-                <tr>
-                  <td class="py-2 px-4 border text-center">1</td>
-                  <td class="py-2 px-4 border text-center">Mentega</td>
-                  <td class="py-2 px-4 border text-center">3/3</td>
-                  <td class="py-2 px-4 border text-center">100%</td>
-                  <td class="py-2 px-4 border text-center">Lolos</td>
-                </tr>
+                @if (empty($itemSupport))
+
+                  @else
+                  @php
+                    $no = 1;
+                  @endphp
+                  @foreach ($itemSupport as $item)
+                    @if ($item['information'] == 'Lolos')
+                      <tr>
+                        <td class="py-2 px-4 border text-center">{{ $no++ }}</td>
+                        <td class="py-2 px-4 border text-center">{{ $item['item'] }}</td>
+                        <td class="py-2 px-4 border text-center">{{ $item['support'] }}</td>
+                        <td class="py-2 px-4 border text-center">{{ $item['percentage'] }} %</td>
+                        <td class="py-2 px-4 border text-center">{{ $item['information'] }}</td>
+                      </tr>
+                    @endif
+                  @endforeach
+
+                  @endif
                 <!-- More data rows... -->
               </tbody>
             </table>
@@ -210,22 +234,30 @@
               <thead class="bg-putty-300 text-white">
                 <tr>
                   <th class="py-2 w-12 border">No</th>
-                  <th class="py-2 px-4 border">Nama Barang 1</th>
-                  <th class="py-2 px-4 border">Nama Barang 2</th>
+                  <th class="py-2 px-4 border">Nama Barang</th>
                   <th class="py-2 px-4 border">Jumlah</th>
                   <th class="py-2 px-4 border">Support</th>
                   <th class="py-2 px-4 border">Keterangan</th>
                 </tr>
               </thead>
               <tbody class="text-gray-800">
-                <tr>
-                  <td class="py-2 px-4 border text-center">1</td>
-                  <td class="py-2 px-4 border text-center">Mentega</td>
-                  <td class="py-2 px-4 border text-center">Terigu</td>
-                  <td class="py-2 px-4 border text-center">3/3</td>
-                  <td class="py-2 px-4 border text-center">100%</td>
-                  <td class="py-2 px-4 border text-center">Lolos</td>
-                </tr>
+                @if (empty($kandidat2ItemSet))
+
+                  @else
+                  @php
+                    $no = 1;
+                  @endphp
+                  @foreach ($kandidat2ItemSet as $item2)
+                    <tr>
+                      <td class="py-2 px-4 border text-center">{{ $no++ }}</td>
+                      <td class="py-2 px-4 border text-center">{{ $item2['item'] }}</td>
+                      <td class="py-2 px-4 border text-center">{{ $item2['support'] }}</td>
+                      <td class="py-2 px-4 border text-center">{{ $item2['percentage'] }}%</td>
+                      <td class="py-2 px-4 border text-center">{{ $item2['information'] }}</td>
+                    </tr>
+                  @endforeach
+
+                  @endif
                 <!-- More data rows... -->
               </tbody>
             </table>
@@ -243,22 +275,32 @@
               <thead class="bg-putty-300 text-white">
                 <tr>
                   <th class="py-2 w-12 border">No</th>
-                  <th class="py-2 px-4 border">Nama Barang 1</th>
-                  <th class="py-2 px-4 border">Nama Barang 2</th>
+                  <th class="py-2 px-4 border">Nama Barang</th>
                   <th class="py-2 px-4 border">Jumlah</th>
                   <th class="py-2 px-4 border">Support</th>
                   <th class="py-2 px-4 border">Keterangan</th>
                 </tr>
               </thead>
               <tbody class="text-gray-800">
-                <tr>
-                  <td class="py-2 px-4 border text-center">1</td>
-                  <td class="py-2 px-4 border text-center">Mentega</td>
-                  <td class="py-2 px-4 border text-center">Terigu</td>
-                  <td class="py-2 px-4 border text-center">3/3</td>
-                  <td class="py-2 px-4 border text-center">100%</td>
-                  <td class="py-2 px-4 border text-center">Lolos</td>
-                </tr>
+                @if (empty($kandidat2ItemSet))
+
+                  @else
+                  @php
+                    $no = 1;
+                  @endphp
+                  @foreach ($kandidat2ItemSet as $item2)
+                    @if ($item2['information'] == 'Lolos')
+                      <tr>
+                        <td class="py-2 px-4 border text-center">{{ $no++ }}</td>
+                        <td class="py-2 px-4 border text-center">{{ $item2['item'] }}</td>
+                        <td class="py-2 px-4 border text-center">{{ $item2['support'] }}</td>
+                        <td class="py-2 px-4 border text-center">{{ $item2['percentage'] }}%</td>
+                        <td class="py-2 px-4 border text-center">{{ $item2['information'] }}</td>
+                      </tr>
+                  @endif
+                @endforeach
+
+                @endif
                 <!-- More data rows... -->
               </tbody>
             </table>
@@ -284,14 +326,24 @@
                 </tr>
               </thead>
               <tbody class="text-gray-800">
-                <tr>
-                  <td class="py-2 px-4 border text-center">1</td>
-                  <td class="py-2 px-4 border text-center">Mentega => Terigu</td>
-                  <td class="py-2 px-4 border text-center">33.33</td>
-                  <td class="py-2 px-4 border text-center">33.33</td>
-                  <td class="py-2 px-4 border text-center">100</td>
-                  <td class="py-2 px-4 border text-center">Lolos</td>
-                </tr>
+                @if (empty($rules))
+
+                  @else
+                  @php
+                    $no = 1;
+                  @endphp
+                  @foreach ($rules as $confidence1)
+                    <tr>
+                      <td class="py-2 px-4 border text-center">{{ $no++ }}</td>
+                      <td class="py-2 px-4 border text-center">{{ $confidence1['itemX'] }} => {{ $confidence1['itemY'] }} </td>
+                      <td class="py-2 px-4 border text-center">{{ $confidence1['supportXY'] }}</td>
+                      <td class="py-2 px-4 border text-center">{{ $confidence1['supportX'] }}</td>
+                      <td class="py-2 px-4 border text-center">{{ $confidence1['confidence'] }}%</td>
+                      <td class="py-2 px-4 border text-center">Lolos</td>
+                    </tr>
+                @endforeach
+
+                @endif
                 <!-- More data rows... -->
               </tbody>
             </table>
@@ -317,14 +369,24 @@
                 </tr>
               </thead>
               <tbody class="text-gray-800">
-                <tr>
-                  <td class="py-2 px-4 border text-center">1</td>
-                  <td class="py-2 px-4 border text-center">Mentega => Terigu</td>
-                  <td class="py-2 px-4 border text-center">2/2</td>
-                  <td class="py-2 px-4 border text-center">3/4</td>
-                  <td class="py-2 px-4 border text-center">1.33</td>
-                  <td class="py-2 px-4 border text-center">Positif</td>
-                </tr>
+                @if (empty($rules))
+
+                  @else
+                  @php
+                    $no = 1;
+                  @endphp
+                  @foreach ($rules as $confidence1)
+                    <tr>
+                      <td class="py-2 px-4 border text-center">{{ $no++ }}</td>
+                      <td class="py-2 px-4 border text-center">{{ $confidence1['itemX'] }} => {{ $confidence1['itemY'] }} </td>
+                      <td class="py-2 px-4 border text-center">{{ $confidence1['confidence'] }}%</td>
+                      <td class="py-2 px-4 border text-center">{{ $confidence1['bencmark'] }}%</td>
+                      <td class="py-2 px-4 border text-center">{{ $confidence1['liftRatio'] }}</td>
+                      <td class="py-2 px-4 border text-center">{{ $confidence1['informationLiftRatio'] }}</td>
+                    </tr>
+                  @endforeach
+
+                  @endif
                 <!-- More data rows... -->
               </tbody>
             </table>
@@ -342,24 +404,30 @@
                 <thead class="bg-putty-300 text-white">
                   <tr>
                     <th class="py-2 w-12 border">No</th>
-                    <th class="py-2 px-4 border">Nama Barang 1</th>
-                    <th class="py-2 px-4 border">Nama Barang 2</th>
-                    <th class="py-2 px-4 border">Nama Barang 3</th>
+                    <th class="py-2 px-4 border">Nama Barang</th>
                     <th class="py-2 px-4 border">Jumlah</th>
                     <th class="py-2 px-4 border">Support</th>
                     <th class="py-2 px-4 border">Keterangan</th>
                   </tr>
                 </thead>
                 <tbody class="text-gray-800">
-                  <tr>
-                    <td class="py-2 px-4 border text-center">1</td>
-                    <td class="py-2 px-4 border text-center">Mentega</td>
-                    <td class="py-2 px-4 border text-center">Terigu</td>
-                    <td class="py-2 px-4 border text-center">Telur</td>
-                    <td class="py-2 px-4 border text-center">3/3</td>
-                    <td class="py-2 px-4 border text-center">100%</td>
-                    <td class="py-2 px-4 border text-center">Lolos</td>
-                  </tr>
+                  @if (empty($kandidat3ItemSet))
+
+                  @else
+                  @php
+                    $no = 1;
+                  @endphp
+                  @foreach ($kandidat3ItemSet as $item3)
+                    <tr>
+                      <td class="py-2 px-4 border text-center">{{ $no++ }}</td>
+                      <td class="py-2 px-4 border text-center">{{ $item3['item'] }}</td>
+                      <td class="py-2 px-4 border text-center">{{ $item3['support'] }}</td>
+                      <td class="py-2 px-4 border text-center">{{ $item3['percentage'] }}%</td>
+                      <td class="py-2 px-4 border text-center">{{ $item3['information'] }}</td>
+                    </tr>
+                  @endforeach
+
+                  @endif
                   <!-- More data rows... -->
                 </tbody>
             </table>
@@ -377,24 +445,34 @@
                 <thead class="bg-putty-300 text-white">
                   <tr>
                     <th class="py-2 w-12 border">No</th>
-                    <th class="py-2 px-4 border">Nama Barang 1</th>
-                    <th class="py-2 px-4 border">Nama Barang 2</th>
-                    <th class="py-2 px-4 border">Nama Barang 3</th>
+                    <th class="py-2 px-4 border">Nama Barang</th>
                     <th class="py-2 px-4 border">Jumlah</th>
                     <th class="py-2 px-4 border">Support</th>
                     <th class="py-2 px-4 border">Keterangan</th>
                   </tr>
                 </thead>
                 <tbody class="text-gray-800">
-                  <tr>
-                    <td class="py-2 px-4 border text-center">1</td>
-                    <td class="py-2 px-4 border text-center">Mentega</td>
-                    <td class="py-2 px-4 border text-center">Terigu</td>
-                    <td class="py-2 px-4 border text-center">Telur</td>
-                    <td class="py-2 px-4 border text-center">3/3</td>
-                    <td class="py-2 px-4 border text-center">100%</td>
-                    <td class="py-2 px-4 border text-center">Lolos</td>
-                  </tr>
+                  @if (empty($kandidat3ItemSet))
+
+                  @else
+                  @php
+                    $no = 1;
+                  @endphp
+                  @foreach ($kandidat3ItemSet as $item3)
+                    @if ($item2['information'] == 'Lolos')
+                      <tr>
+                        <td class="py-2 px-4 border text-center">{{ $no++ }}</td>
+                        <td class="py-2 px-4 border text-center">{{ $item3['item'] }}</td>
+                        <td class="py-2 px-4 border text-center">{{ $item3['support'] }}</td>
+                        <td class="py-2 px-4 border text-center">{{ $item3['percentage'] }}%</td>
+                        <td class="py-2 px-4 border text-center">{{ $item3['information'] }}</td>
+                      </tr>
+                    @else
+                    
+                    @endif
+                @endforeach
+
+                @endif
                   <!-- More data rows... -->
                 </tbody>
             </table>
