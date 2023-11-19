@@ -123,7 +123,9 @@ class DataProsesController extends Controller
                 $newItemCombinations[] = $newItem;
             }
         }
+        
         $kandidat2ItemSet = [];
+        $kandidatTrue = [];
         foreach ($newItemCombinations as $newItem) {
             $support = 0;
             foreach ($binaryTable as $productId => $binary) {
@@ -138,7 +140,6 @@ class DataProsesController extends Controller
                 if ($itemFound) {
                     $support++;
                 }
-                
             }
 
             $percentage = ($support / $totalTransaction) * 100;
@@ -146,6 +147,12 @@ class DataProsesController extends Controller
             
             if ($roundedPercentage > $minSupport) {
                 $information = 'Lolos';
+                $kandidatTrue[$newItem] = [
+                    'item' => $newItem,
+                    'support' => $support . '/' . $totalTransaction,
+                    'percentage' => $roundedPercentage,
+                    'information' => $information
+                ];
             } else {
                 $information = 'Tidak Lolos';
             }
@@ -159,7 +166,7 @@ class DataProsesController extends Controller
         }
         // dd($kandidat2ItemSet);
         $rules = [];
-        foreach ($kandidat2ItemSet as $kandidat2Item => $data) {
+        foreach ($kandidatTrue as $kandidat2Item => $data) {
             $items = explode(',', $kandidat2Item);
             list($supportXYNum, $supportYNum) = explode('/', $data['support']);
             $supportXY = (float) $supportXYNum;
@@ -211,6 +218,8 @@ class DataProsesController extends Controller
                 }
             }
         }
+
+        //Knandidat 3 item set
         $filteredItems3 = [];
         foreach ($itemSupport as $itemData3) {
             if ($itemData3['information'] == 'Lolos') {
@@ -231,8 +240,9 @@ class DataProsesController extends Controller
         }
 
         $kandidat3ItemSet = [];
+        $kandidatTrue3 = [];
         foreach ($newItemCombinations3 as $newItem3) {
-            $support = 0;
+            $supportAB = 0;
             foreach ($binaryTable as $productId => $binary) {
                 $items3 = explode(',', $newItem3);
                 $item3Found = true;
@@ -243,15 +253,38 @@ class DataProsesController extends Controller
                     }
                 }
                 if ($item3Found) {
-                    $support++;
+                    $supportAB++;
                 }
             }
-            
-            $percentage3 = ($support / $totalTransaction) * 100;
+            // dd($supportAB);
+        
+            $percentage3 = ($supportAB / $totalTransaction) * 100;
             $roundedPercentage3 = number_format($percentage3, 2);
+            // dd($supportAB, $roundedPercentage3);
+
+            foreach ($filteredItems3 as $itemSatu) {
+                foreach ($filteredItems3 as $itemDua) {
+                    if ($itemSatu != $itemDua) {
+                        $supportB = 0;
+                        foreach ($binaryTable as $productId => $binary) {
+                            if ($binary[$itemSatu] == 1 && $binary[$itemDua] == 1) {
+                                $supportB++;
+                            }
+                        }
+                    }
+                }
+            }
+        
+        // dd($supportB);
 
             if ($roundedPercentage3 > $minSupport) {
                 $information = 'Lolos';
+                $kandidatTrue3[$newItem3] = [
+                    'item' => $newItem3,
+                    'support' => $support . '/' . $totalTransaction,
+                    'percentage' => $roundedPercentage3,
+                    'information' => $information
+                ];
             } else {
                 $information = 'Tidak Lolos';
             }
@@ -262,6 +295,62 @@ class DataProsesController extends Controller
                 'percentage' => $roundedPercentage3,
                 'information' => $information,
             ];
+        }
+
+        $rules3 = [];
+        foreach ($kandidatTrue3 as $kandidat3Item => $data3) {
+            $items3 = explode(',', $kandidat3Item);
+            list($supportXYNum3, $supportYNum3) = explode('/', $data3['support']);
+            $supportXY3 = (float) $supportXYNum3;
+            $supportY3 = (float) $supportYNum3;
+            $resultSupportXY3 = round($supportXY3 / $supportY3, 2);
+
+            foreach ($items3 as $item3) {
+                $itemXList3 = array_diff($items3, [$item3]);
+                foreach ($itemXList3 as $itemX3) {
+                    $supportXString3 = isset($itemSupport[$itemX3]) ? $itemSupport[$itemX3]['support'] : '0/0';
+                    list($supportXNum3, $totalTransactionNum3) = explode('/', $supportXString3);
+                    $supportX3 = (float) $supportXNum3;
+                    $resultSupportX3 = round($supportX3 / $supportY3, 2);
+
+                    // Hitung confidence
+                    if ($supportX3 > 0) {
+                        $confi3 = ($resultSupportXY3 / $resultSupportX3) * 100;
+                        $confidence3 = number_format($confi3, 2);
+                    
+                        // Menghitung lift ratio
+                        $confX3 = isset($itemSupport[$itemX3]) ? $itemSupport[$itemX3]['percentage'] : 0;
+                        $confY3 = isset($itemSupport[$item3]) ? $itemSupport[$item3]['percentage'] : 0;
+                        $nc3 = $confidence3 * 100;
+                        $benc3 = $supportX3 / $totalTransaction * 100;
+                        $bencmark3 = number_format($benc3, 2);
+                        $liftR3 = ($nc3 / $bencmark3) / 100;
+                        $liftRatio3 = number_format($liftR3, 2);
+
+                        if ($liftRatio3 > 1) {
+                            $informationLiftRatio3 = 'Positif';
+                        } else if ($liftRatio3 == 1) {
+                            $informationLiftRatio3 = 'Normal';
+                        } else {
+                            $informationLiftRatio3 = 'Negatif';
+                        }
+                        
+                        // Cek apakah confidence melewati threshold
+                        if ($confidence3 >= $confidenceThreshold) {
+                            $rules3[] = [
+                                'itemX' => $itemX3,
+                                'itemY' => $item3,
+                                'supportXY' => $resultSupportXY3,
+                                'supportX' => $resultSupportX3,
+                                'confidence' => $confidence3,
+                                'bencmark3' => $bencmark3,
+                                'liftRatio3' => $liftRatio3,
+                                'informationLiftRatio3' => $informationLiftRatio3,
+                            ];
+                        }
+                    }
+                }
+            }
         }
         // dd($kandidat3ItemSet);
         return view('dataproses.index', [
@@ -274,6 +363,7 @@ class DataProsesController extends Controller
             'kandidat2ItemSet' => $kandidat2ItemSet,
             'rules' => $rules,
             'kandidat3ItemSet' => $kandidat3ItemSet,
+            'rules3' => $rules3,
         ]);
     }
 }

@@ -375,14 +375,14 @@
                   @php
                     $no = 1;
                   @endphp
-                  @foreach ($rules as $confidence1)
+                  @foreach ($rules as $confidence2)
                     <tr>
                       <td class="py-2 px-4 border text-center">{{ $no++ }}</td>
-                      <td class="py-2 px-4 border text-center">{{ $confidence1['itemX'] }} => {{ $confidence1['itemY'] }} </td>
-                      <td class="py-2 px-4 border text-center">{{ $confidence1['confidence'] }}%</td>
-                      <td class="py-2 px-4 border text-center">{{ $confidence1['bencmark'] }}%</td>
-                      <td class="py-2 px-4 border text-center">{{ $confidence1['liftRatio'] }}</td>
-                      <td class="py-2 px-4 border text-center">{{ $confidence1['informationLiftRatio'] }}</td>
+                      <td class="py-2 px-4 border text-center">{{ $confidence2['itemX'] }} => {{ $confidence2['itemY'] }} </td>
+                      <td class="py-2 px-4 border text-center">{{ $confidence2['confidence'] }}%</td>
+                      <td class="py-2 px-4 border text-center">{{ $confidence2['bencmark'] }}%</td>
+                      <td class="py-2 px-4 border text-center">{{ $confidence2['liftRatio'] }}</td>
+                      <td class="py-2 px-4 border text-center">{{ $confidence2['informationLiftRatio'] }}</td>
                     </tr>
                   @endforeach
 
@@ -459,7 +459,7 @@
                     $no = 1;
                   @endphp
                   @foreach ($kandidat3ItemSet as $item3)
-                    @if ($item2['information'] == 'Lolos')
+                    @if ($item3['information'] == 'Lolos')
                       <tr>
                         <td class="py-2 px-4 border text-center">{{ $no++ }}</td>
                         <td class="py-2 px-4 border text-center">{{ $item3['item'] }}</td>
@@ -498,14 +498,24 @@
                   </tr>
                 </thead>
                 <tbody class="text-gray-800">
-                  <tr>
-                    <td class="py-2 px-4 border text-center">1</td>
-                    <td class="py-2 px-4 border text-center">Mentega, Telur => Terigu</td>
-                    <td class="py-2 px-4 border text-center">33.33</td>
-                    <td class="py-2 px-4 border text-center">33.33</td>
-                    <td class="py-2 px-4 border text-center">100</td>
-                    <td class="py-2 px-4 border text-center">Lolos</td>
-                  </tr>
+                  @if (empty($rules3))
+
+                  @else
+                  @php
+                    $no = 1;
+                  @endphp
+                  @foreach ($rules3 as $confidence3)
+                    <tr>
+                      <td class="py-2 px-4 border text-center">{{ $no++ }}</td>
+                      <td class="py-2 px-4 border text-center">{{ $confidence3['itemX'] }} => {{ $confidence3['itemY'] }} </td>
+                      <td class="py-2 px-4 border text-center">{{ $confidence3['supportXY'] }}</td>
+                      <td class="py-2 px-4 border text-center">{{ $confidence3['supportX'] }}</td>
+                      <td class="py-2 px-4 border text-center">{{ $confidence3['confidence'] }}%</td>
+                      <td class="py-2 px-4 border text-center">Lolos</td>
+                    </tr>
+                @endforeach
+
+                @endif
                   <!-- More data rows... -->
                 </tbody>
             </table>
@@ -531,14 +541,24 @@
                   </tr>
                 </thead>
                 <tbody class="text-gray-800">
-                  <tr>
-                    <td class="py-2 px-4 border text-center">1</td>
-                    <td class="py-2 px-4 border text-center">Mentega, Telur => Terigu</td>
-                    <td class="py-2 px-4 border text-center">2/2</td>
-                    <td class="py-2 px-4 border text-center">3/4</td>
-                    <td class="py-2 px-4 border text-center">1.33</td>
-                    <td class="py-2 px-4 border text-center">Berpengaruh Positif</td>
-                  </tr>
+                  @if (empty($rules3))
+
+                  @else
+                  @php
+                    $no = 1;
+                  @endphp
+                  @foreach ($rules3 as $confidence3)
+                    <tr>
+                      <td class="py-2 px-4 border text-center">{{ $no++ }}</td>
+                      <td class="py-2 px-4 border text-center">{{ $confidence3['itemX'] }} => {{ $confidence3['itemY'] }} </td>
+                      <td class="py-2 px-4 border text-center">{{ $confidence3['confidence'] }}%</td>
+                      <td class="py-2 px-4 border text-center">{{ $confidence3['bencmark3'] }}%</td>
+                      <td class="py-2 px-4 border text-center">{{ $confidence3['liftRatio3'] }}</td>
+                      <td class="py-2 px-4 border text-center">{{ $confidence3['informationLiftRatio3'] }}</td>
+                    </tr>
+                  @endforeach
+
+                  @endif
                   <!-- More data rows... -->
                 </tbody>
             </table>
