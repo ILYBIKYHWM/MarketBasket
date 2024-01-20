@@ -68,8 +68,8 @@ class DataTransaksiController extends Controller
 
     public function manualInput(Request $request) {
         $lastTransaksi = DataTransaksi::latest()->get();
+        
         $nomor = $lastTransaksi ? (intval(substr($lastTransaksi->id_transaksi, 2)) + 1) : 1;
-
         $kode = 'T0' . $nomor;
 
         $request->validate([

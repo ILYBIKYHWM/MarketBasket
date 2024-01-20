@@ -19,12 +19,15 @@ class DataProsesController extends Controller
 
     public function searchData(Request $request)
     {
-        $daterange = $request->input('daterange');        
+        $daterange = $request->input('daterange');
         list($startDate, $endDate) = explode(' - ', $daterange);
-        $startDate = date('Y-m-d', strtotime($startDate));
-        $endDate = date('Y-m-d', strtotime($endDate));
-
+        $startDate = date('m/d/Y', strtotime($startDate));
+        $endDate = date('m/d/Y', strtotime($endDate));
+        
+        // $tanggal = DataTransaksi::all();
         $dataSort = DataTransaksi::whereBetween('tanggal', [$startDate, $endDate])->get();
+        // dd($startDate);
+        
         
         $request->session()->put('dataSort', $dataSort);
         $request->session()->put('startDate', $startDate);
@@ -58,10 +61,11 @@ class DataProsesController extends Controller
         $allItems = [];
         foreach($productList as $product_list){
             foreach($product_list as $product){
-                $product = explode(',', $product);
+                $product = explode(', ', $product);
                 $allItems = array_merge($allItems, $product);
             }
         }
+        // dd($allItems);
         $allItems = array_unique($allItems);
         // dd($allItems);
         $binaryTable = [];
@@ -123,7 +127,7 @@ class DataProsesController extends Controller
                 $newItemCombinations[] = $newItem;
             }
         }
-        
+
         $kandidat2ItemSet = [];
         $kandidatTrue = [];
         foreach ($newItemCombinations as $newItem) {
@@ -141,6 +145,7 @@ class DataProsesController extends Controller
                     $support++;
                 }
             }
+            // dd($items);
 
             $percentage = ($support / $totalTransaction) * 100;
             $roundedPercentage = number_format($percentage, 2);
